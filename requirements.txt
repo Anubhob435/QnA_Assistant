@@ -1,0 +1,9 @@
+pinecone-client
+langchain
+langchain-pinecone
+langchain-community
+langchain-huggingface # Added for updated HuggingFaceEmbeddings
+sentence-transformers
+tqdm
+pyyaml
+python-dotenv

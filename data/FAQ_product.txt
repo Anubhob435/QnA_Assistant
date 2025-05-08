@@ -1,0 +1,19 @@
+Document 2:  
+Company FAQ - Product Specific (Insight Analyst) 
+Insight Analyst - Product Frequently Asked Questions 
+• Q1: What is Insight Analyst? Insight Analyst is a powerful data analytics platform 
+designed to help businesses transform raw data into actionable insights. It offers features 
+like data visualization, trend analysis, and predictive modeling. 
+• Q2: What types of data sources can Insight Analyst connect to? Insight Analyst can 
+connect to a wide variety of data sources, including SQL databases (e.g., PostgreSQL, 
+MySQL), NoSQL databases (e.g., MongoDB), cloud storage services (e.g., AWS S3, 
+Google Cloud Storage), and direct file uploads (CSV, Excel). 
+• Q3: Is there a free trial available for Insight Analyst? Yes, we offer a 14-day free trial 
+for Insight Analyst. You can sign up on our website to explore its features with your own 
+data. 
+• Q4: What are the system requirements for Insight Analyst? Insight Analyst is a web
+based platform, so a modern web browser (Chrome, Firefox, Safari, Edge) and a stable 
+internet connection are required. For on-premise deployments, specific server 
+requirements will be provided based on the expected data volume and user load. 
+• Q5: How often is Insight Analyst updated? We release minor updates and bug fixes for 
+Insight Analyst on a bi-weekly basis. Major feature releases typically occur quarterly. 

@@ -1,0 +1,26 @@
+Document 4:  
+Product Specification - Functional Requirements (InsightAnalyst - Dashboard 
+Sharing Feature) 
+Feature: Dashboard Sharing & Collaboration 
+• 1. User Story: As a user, I want to be able to share my dashboards with other team 
+members so that we can collaborate on data analysis and insights. 
+• 2. Functional Requirements:  
+o FR1: Users must be able to share a dashboard via a unique, shareable link. 
+o FR2: Users must be able to set permissions for shared dashboards (e.g., view
+only, can edit). 
+o FR3: Shared users with 'view-only' permission should not be able to modify the 
+dashboard structure or filters. 
+o FR4: Shared users with 'can edit' permission should have the ability to modify 
+dashboard components, apply filters, and save changes (changes should reflect for 
+all with access or create a new version, TBD). 
+o FR5: The system must allow sharing with specific registered users within the 
+organization or with external users via email invitation (if enabled by admin). 
+o FR6: Users should be able to revoke access to a shared dashboard at any time. 
+o FR7: The dashboard owner should see a list of users with whom the dashboard is 
+currently shared and their permission levels. 
+• 3. Acceptance Criteria:  
+o A dashboard can be successfully shared with another user who can view it 
+according to the set permissions. 
+o Permission changes (e.g., view-only to can-edit) are reflected immediately for the 
+shared user. 
+o Access revocation prevents the shared user from accessing the dashboard. 

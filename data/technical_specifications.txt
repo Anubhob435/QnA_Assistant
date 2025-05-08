@@ -1,0 +1,27 @@
+Document 5: Product Specification - Technical Specifications (InsightAnalyst - 
+Core API) 
+Component: InsightAnalyst - Core API 
+• 1. Overview: The Core API provides programmatic access to InsightAnalyst's core 
+functionalities, including data source management, query execution, and dashboard 
+configuration. It follows RESTful principles. 
+• 2. Technology Stack:  
+o Programming Language: Python (Flask/Django framework) 
+o Database (Metadata Store): PostgreSQL 
+o Authentication: OAuth 2.0 
+o API Specification Language: OpenAPI 3.0 
+• 3. Key Endpoints (Examples):  
+o POST /api/v1/datasources: Add a new data source. 
+o GET /api/v1/datasources/{id}: Retrieve details of a specific data source. 
+o POST /api/v1/query: Execute a query against a specified data source. 
+o GET /api/v1/dashboards: List available dashboards for the authenticated user. 
+o PUT /api/v1/dashboards/{id}: Update a specific dashboard's configuration. 
+• 4. Performance Requirements:  
+o Average API response time: < 200ms for metadata operations. 
+o P95 API response time: < 500ms for metadata operations. 
+o Capable of handling 100 concurrent API requests without performance 
+degradation. 
+• 5. Security Considerations:  
+o All API endpoints must be secured using HTTPS. 
+o Input validation must be implemented for all request parameters to prevent 
+injection attacks. 
+o Rate limiting should be applied to prevent abuse. 

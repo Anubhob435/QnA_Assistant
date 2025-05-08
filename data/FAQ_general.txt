@@ -1,0 +1,19 @@
+Document 1:  
+Company FAQ - General (Nova Solutions) 
+Nova Solutions - Frequently Asked Questions 
+• Q1: What services does Nova Solutions offer? Nova Solutions specializes in providing 
+cutting-edge software development, cloud computing solutions, and IT consulting 
+services to businesses of all sizes. We help companies leverage technology to improve 
+efficiency and drive growth. 
+• Q2: How can I contact Nova Solutions for support? You can reach our support team 
+via email at support@novasolutions.example.com, by phone at 1-800-555-NOVA, or 
+through the live chat feature on our website during business hours (9 AM - 6 PM, Mon
+Fri). 
+• Q3: Where is Nova Solutions located? Our headquarters is located at 123 Tech Park, 
+Innovation City, CA 94043. We also have regional offices in New York and London. 
+• Q4: Does Nova Solutions work with international clients? Yes, Nova Solutions serves 
+clients globally. We have experience working with businesses across North America, 
+Europe, and Asia. 
+• Q5: How does Nova Solutions ensure data security? Nova Solutions adheres to 
+industry-best security practices, including end-to-end encryption, regular security audits, 
+and compliance with international data protection regulations such as GDPR and CCPA.  
