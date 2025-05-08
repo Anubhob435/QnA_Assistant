@@ -1,0 +1,33 @@
+Step 1: Setup Environment 
+requirements.txt created
+(DONE)
+
+Step 2: Data Ingestion
+
+Collect Documents
+Choose 3–5 short text files (e.g., FAQs, manuals, or Wikipedia articles).
+Chunk the Text
+Use LangChain's CharacterTextSplitter or similar to chunk long texts.
+(DONE)
+
+Step 3: Vector Store & Retrieval
+Actions:
+Embed & Index Chunks
+Use Pinecone.
+(DONE)
+
+Step 4: LLM Integration
+Actions:
+Use GEMINi 2.0 flash
+
+Step 5: Agentic Workflow
+Actions:
+Basic Routing Agent
+Use LangChain's initialize_agent with custom tools:
+Log Steps
+Print or log the decision path and tool used based on keyword matching.
+
+Step 6: Demo using command line Interface
+
+STEP 7
+Web UI (Streamlit) 

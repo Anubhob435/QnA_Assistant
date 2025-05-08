@@ -1,4 +1,4 @@
-pinecone-client
+pinecone
 langchain
 langchain-pinecone
 langchain-community
@@ -7,3 +7,6 @@ sentence-transformers
 tqdm
 pyyaml
 python-dotenv
+langchain-google-genai # For Gemini integration
+streamlit # For web UI
+pinecone-client==2.2.4
