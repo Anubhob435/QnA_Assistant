@@ -8,12 +8,15 @@ import datetime
 import streamlit as st
 from llm_ai import get_gemini_llm
 
-# Configure logging
+# Ensure agent_logs directory exists
+os.makedirs("agent_logs", exist_ok=True)
+
+# Configure logging with log files in agent_logs folder
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler(f"agent_logs_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.log"),
+        logging.FileHandler(f"agent_logs/stream_chat_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.log"),
         logging.StreamHandler()
     ]
 )
