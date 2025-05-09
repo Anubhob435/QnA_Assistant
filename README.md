@@ -37,14 +37,31 @@ This QnA Assistant is designed to answer questions based on a collection of docu
 pip install -r requirements.txt
 ```
 
-3. Create a `.env` file in the project root with the following variables:
+### Configuration
+
+#### For Local Development
+Create a `.env` file in the project root with the following variables:
 ```bash
 PINECONE_API_KEY=your_pinecone_api_key
 PINECONE_INDEX_NAME=your_index_name
+PINECONE_HOST=your_pinecone_host_url  # Optional
 PINECONE_DIMENSIONS=768  # For BAAI/llama-2-embeddings
 EMBEDDING_MODEL_NAME=BAAI/llama-2-embeddings
 GEMINI_API_KEY=your_gemini_api_key
 ```
+
+#### For Streamlit Cloud Deployment
+When deploying to Streamlit Cloud, create a `.streamlit/secrets.toml` file:
+```toml
+PINECONE_API_KEY = "your_pinecone_api_key"
+PINECONE_INDEX_NAME = "your_index_name"
+PINECONE_HOST = "your_pinecone_host_url"  # Optional
+PINECONE_DIMENSIONS = "768"  # For BAAI/llama-2-embeddings
+EMBEDDING_MODEL_NAME = "BAAI/llama-2-embeddings"
+GEMINI_API_KEY = "your_gemini_api_key"
+```
+
+> **Note:** Make sure to add `.streamlit/secrets.toml` to your `.gitignore` file to prevent committing sensitive API keys to GitHub.
 
 ### Data Preparation
 

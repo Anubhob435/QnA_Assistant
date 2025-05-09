@@ -1,5 +1,5 @@
 import os
-# No need for dotenv when using Streamlit secrets
+from dotenv import load_dotenv
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_pinecone import PineconeVectorStore
 from pinecone import Pinecone
@@ -26,16 +26,14 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Use Streamlit secrets instead of environment variables for GitHub hosting
-# No need to load_dotenv() when using Streamlit secrets
+# Load environment variables
+load_dotenv()
 
-# Get config from Streamlit secrets
-pinecone_api_key = st.secrets["PINECONE_API_KEY"]
-index_name = st.secrets["PINECONE_INDEX_NAME"]
-pinecone_host = st.secrets.get("PINECONE_HOST", None)
+# Initialize Pinecone with API key from .env
+pc = Pinecone(api_key=os.getenv('PINECONE_API_KEY'))
 
-# Initialize Pinecone with API key from Streamlit secrets
-pc = Pinecone(api_key=pinecone_api_key)
+# Get index information from environment variables
+index_name = os.getenv("PINECONE_INDEX_NAME")
 
 # Initialize session state for chat history if it doesn't exist
 if "messages" not in st.session_state:
@@ -63,7 +61,7 @@ def initialize_rag_pipeline():
             logger.error(f"Failed to load Llama embedding model: {e}")
             logger.info("Falling back to all-MiniLM-L6-v2 embedding model")
             embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-            
+
         # Connect to existing vector store (no document upload)
         vector_store = PineconeVectorStore(
             index_name=index_name,
@@ -221,58 +219,11 @@ def main():
     st.title("🤖 Agentic RAG Assistant")
     st.write("Ask questions about the documents, request calculations, or ask for definitions.")
     
-    # Add information about Streamlit secrets configuration
-    with st.sidebar:
-        if st.checkbox("Show Configuration Status", value=False):
-            st.subheader("Configuration Status")
-            
-            # Check if secrets are available
-            missing_secrets = []
-            for key in ["PINECONE_API_KEY", "PINECONE_INDEX_NAME", "GEMINI_API_KEY"]:
-                try:
-                    if not st.secrets[key]:
-                        missing_secrets.append(key)
-                except:
-                    missing_secrets.append(key)
-                    
-            if missing_secrets:
-                st.error(f"Missing required secrets: {', '.join(missing_secrets)}")
-            else:
-                st.success("All required secrets are configured")
-                
-            # Check optional secrets
-            optional = ["PINECONE_HOST", "PINECONE_DIMENSIONS", "EMBEDDING_MODEL_NAME"]
-            for key in optional:
-                try:
-                    if key in st.secrets:
-                        st.info(f"{key} is configured")
-                except:
-                    st.warning(f"{key} is not configured (optional)")
-    
     # Initialize the RAG pipeline (cached)
     retriever, qa_chain = initialize_rag_pipeline()
     
     if not retriever or not qa_chain:
         st.error("Failed to initialize RAG pipeline. Please check the logs for details.")
-        st.error("Make sure your Streamlit secrets are configured correctly.")
-        
-        # Provide more detailed guidance on fixing the issue
-        with st.expander("How to fix this issue"):
-            st.markdown("""
-            ### Troubleshooting Steps
-            
-            1. Verify your Streamlit secrets are correctly configured with:
-               - `PINECONE_API_KEY`
-               - `PINECONE_INDEX_NAME` 
-               - `GEMINI_API_KEY`
-            
-            2. Check that your Pinecone index exists and is accessible
-            
-            3. For local development, you can use a `.env` file instead
-            
-            4. Check the application logs for more details about the error
-            """)
-            
         return
     
     # Initialize the LLM
@@ -303,7 +254,9 @@ def main():
                 st.markdown(response)
         
         # Add assistant response to chat history
-        st.session_state.messages.append({"role": "assistant", "content": response})    # Add sidebar with app information
+        st.session_state.messages.append({"role": "assistant", "content": response})
+
+    # Add sidebar with app information
     with st.sidebar:
         st.header("About")
         st.write("This Agentic RAG Assistant uses:")
