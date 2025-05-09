@@ -146,3 +146,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Add authentication system for the web interface
 - Implement additional tools beyond RAG and calculator
 - Support for document updates without full reprocessing
+
+## 📄 License
+MIT License – Free to use, modify, and distribute.
+
+## 👨‍💻 Author
+ANUBHOB DEY
+AI Engineer & Backend Developer
