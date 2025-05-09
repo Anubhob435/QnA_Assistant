@@ -1,0 +1,27 @@
+2025-05-09 10:56:52,186 - INFO - Use pytorch device_name: cpu
+2025-05-09 10:56:52,186 - INFO - Load pretrained SentenceTransformer: BAAI/llama-2-embeddings
+2025-05-09 10:56:52,655 - WARNING - No sentence-transformers model found with name BAAI/llama-2-embeddings. Creating a new one with mean pooling.
+2025-05-09 10:56:52,913 - ERROR - Failed to load Llama embedding model: BAAI/llama-2-embeddings is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'
+If this is a private repository, make sure to pass a token having permission to this repo either by logging in with `huggingface-cli login` or by passing `token=<your_token>`
+2025-05-09 10:56:52,921 - INFO - Falling back to all-MiniLM-L6-v2 embedding model
+2025-05-09 10:56:52,922 - INFO - Use pytorch device_name: cpu
+2025-05-09 10:56:52,923 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-05-09 10:56:56,903 - INFO - Connected to existing Pinecone index 'towering-elder'
+2025-05-09 10:56:56,928 - INFO - Initialized Gemini 2.0 Flash model
+2025-05-09 10:56:56,931 - INFO - Agentic RAG Assistant starting up
+2025-05-09 10:56:56,931 - INFO - Starting CLI interface
+2025-05-09 10:57:05,728 - INFO - User query: calculate 5 + 5
+2025-05-09 10:57:05,730 - INFO - Processing query: calculate 5 + 5
+2025-05-09 10:57:05,731 - INFO - Detected calculation request, routing directly to calculator tool
+2025-05-09 10:57:05,731 - INFO - Calculator input: 5 + 5
+2025-05-09 10:57:05,732 - INFO - Calculator result: 10
+2025-05-09 10:57:13,514 - INFO - User query: define earth
+2025-05-09 10:57:13,515 - INFO - Processing query: define earth
+2025-05-09 10:57:13,515 - INFO - Detected definition request, routing directly to dictionary tool
+2025-05-09 10:57:13,516 - INFO - Dictionary lookup for: earth
+2025-05-09 10:57:28,289 - INFO - User query: What are the functional requirements?
+2025-05-09 10:57:28,291 - INFO - Processing query: What are the functional requirements?
+2025-05-09 10:57:28,291 - INFO - Using agent for routing decision
+2025-05-09 10:57:29,544 - INFO - Routing to RAG: functional requirements
+2025-05-09 10:57:29,545 - INFO - Query: functional requirements
+2025-05-09 10:57:31,119 - INFO - Retrieved 3 relevant documents
