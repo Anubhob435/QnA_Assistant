@@ -2,6 +2,13 @@
 
 A powerful question-answering system built with Retrieval-Augmented Generation (RAG) that leverages the Gemini 2.0 Flash LLM and Pinecone vector database for enhanced information retrieval.
 
+#### Live Demo
+
+The application is also available online at: [https://qnaassistant-agent.streamlit.app/](https://qnaassistant-agent.streamlit.app/)
+
+Sample documents can be found in the GitHub repository:
+[https://github.com/Anubhob435/QnA_Assistant/tree/master/data](https://github.com/Anubhob435/QnA_Assistant/tree/master/data)
+
 ## 📝 Overview
 
 This QnA Assistant is designed to answer questions based on a collection of document data stored in a vector database. The system uses a RAG approach, retrieving relevant document chunks before generating accurate answers. It features:
@@ -11,6 +18,7 @@ This QnA Assistant is designed to answer questions based on a collection of docu
 - **LLM Integration**: Employs Google's Gemini 2.0 Flash model for answer generation
 - **Multiple Interfaces**: Available through both a CLI and Streamlit web interface
 - **Basic Calculator**: Built-in calculator tool for performing mathematical operations
+- **Define**: Serves as General Dictionary
 
 ## 🔧 Technology Stack
 
@@ -71,6 +79,9 @@ Place your text files in the `/data` directory. The system currently includes sa
 - functional_requirements.txt
 - product_specifications.txt
 - technical_specifications.txt
+
+Sample documents can be found in the GitHub repository:
+[https://github.com/Anubhob435/QnA_Assistant/tree/master/data](https://github.com/Anubhob435/QnA_Assistant/tree/master/data)
 
 ## 📊 Usage
 
