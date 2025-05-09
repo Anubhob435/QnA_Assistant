@@ -19,6 +19,7 @@ Use Pinecone.
 Step 4: LLM Integration
 Actions:
 Use GEMINi 2.0 flash
+(DONE)
 
 Step 5: Agentic Workflow
 Actions:
@@ -26,8 +27,11 @@ Basic Routing Agent
 Use LangChain's initialize_agent with custom tools:
 Log Steps
 Print or log the decision path and tool used based on keyword matching.
+(DONE)
 
 Step 6: Demo using command line Interface
+(DONE)
 
 STEP 7
 Web UI (Streamlit) 
+(DONE)

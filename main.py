@@ -4,7 +4,7 @@ from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_pinecone import PineconeVectorStore
-import Pinecone
+from pinecone import Pinecone, ServerlessSpec  # Updated import
 import logging
 import datetime
 from llm_ai import get_gemini_llm  # Import the Gemini LLM function
@@ -23,22 +23,20 @@ logger = logging.getLogger(__name__)
 # Load configuration from .env file
 load_dotenv()
 
-# Initialize Pinecone with API key from .env
-pc = Pinecone(api_key=os.getenv('PINECONE_API_KEY'))  # Updated client initialization
+# Initialize Pinecone with API key from .env (new method)
+pc = Pinecone(api_key=os.getenv('PINECONE_API_KEY'))
 
 # Get index information from environment variables
 index_name = os.getenv("PINECONE_INDEX_NAME")
-host = os.getenv("PINECONE_HOST")
 dimensions = int(os.getenv("PINECONE_DIMENSIONS"))
 model_name = os.getenv("EMBEDDING_MODEL_NAME")
 
 # Check if index exists or create it
 try:
     # Get list of index names
-    index_list = [index.name for index in pc.list_indexes()]
+    index_list = pc.list_indexes().names()
     
     if index_name in index_list:
-        index = pc.Index(index_name)
         logger.info(f"Using existing Pinecone index '{index_name}'")
     else:
         logger.info(f"Creating new Pinecone index '{index_name}'...")
@@ -46,12 +44,18 @@ try:
             name=index_name,
             dimension=dimensions,
             metric="cosine",
+            spec=ServerlessSpec(
+                cloud="aws",
+                region="us-east-1"
+            )
         )
-        index = pc.Index(index_name)
         logger.info(f"Created new Pinecone index '{index_name}'")
 except Exception as e:
     logger.error(f"Error with Pinecone index: {e}")
     raise
+
+# Get the index instance
+index = pc.Index(index_name)
 
 # Load all text files from the data directory
 data_dir = "data"
