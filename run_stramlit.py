@@ -98,10 +98,28 @@ def ask_question(query, retriever, qa_chain):
         docs = retriever.get_relevant_documents(query)
         logger.info(f"Retrieved {len(docs)} relevant documents")
         result = qa_chain({"input_documents": docs, "question": query})
-        return result["output_text"]
+        
+        # Format the source documents for display
+        context_snippets = []
+        for i, doc in enumerate(docs):
+            source = doc.metadata.get('source', 'Unknown')
+            content = doc.page_content[:200] + "..." if len(doc.page_content) > 200 else doc.page_content
+            context_snippets.append(f"**Snippet {i+1}** (from {source}):\n{content}")
+        
+        context_text = "\n\n".join(context_snippets)
+        
+        return {
+            "answer": result["output_text"],
+            "context_snippets": context_text,
+            "tool_used": "DocumentQA (RAG Pipeline)"
+        }
     except Exception as e:
         logger.error(f"Error during query processing: {e}")
-        return f"An error occurred: {str(e)}"
+        return {
+            "answer": f"An error occurred: {str(e)}",
+            "context_snippets": "",
+            "tool_used": "DocumentQA (Error)"
+        }
 
 # Helper tools for the agent
 def simple_calculator(query):
@@ -113,10 +131,18 @@ def simple_calculator(query):
         logger.info(f"Calculator input: {clean_query}")
         result = eval(clean_query)
         logger.info(f"Calculator result: {result}")
-        return f"Calculation result: {result}"
+        return {
+            "answer": f"Calculation result: {result}",
+            "context_snippets": f"Expression: `{clean_query}` = {result}",
+            "tool_used": "Calculator Tool"
+        }
     except Exception as e:
         logger.error(f"Calculation error: {e}")
-        return f"I couldn't perform that calculation. Error: {str(e)}"
+        return {
+            "answer": f"I couldn't perform that calculation. Error: {str(e)}",
+            "context_snippets": "",
+            "tool_used": "Calculator Tool (Error)"
+        }
 
 def dictionary_lookup(query):
     """Dictionary tool to define words"""
@@ -139,13 +165,30 @@ def dictionary_lookup(query):
                 meanings = data[0].get('meanings', [])
                 if meanings:
                     definition = meanings[0].get('definitions', [{}])[0].get('definition', 'No definition found.')
-                    return f"Definition of {word}: {definition}"
-            return f"I couldn't find a clear definition for '{word}'."
+                    context_text = f"API Source: Dictionary API (api.dictionaryapi.dev)\nWord: {word}"
+                    return {
+                        "answer": f"Definition of {word}: {definition}",
+                        "context_snippets": context_text,
+                        "tool_used": "Dictionary Tool"
+                    }
+            return {
+                "answer": f"I couldn't find a clear definition for '{word}'.",
+                "context_snippets": "No definition data found in API response.",
+                "tool_used": "Dictionary Tool"
+            }
         else:
-            return f"I couldn't find a definition for '{word}'."
+            return {
+                "answer": f"I couldn't find a definition for '{word}'.",
+                "context_snippets": f"API returned status code: {response.status_code}",
+                "tool_used": "Dictionary Tool"
+            }
     except Exception as e:
         logger.error(f"Dictionary lookup error: {e}")
-        return f"I couldn't look up that definition. Error: {str(e)}"
+        return {
+            "answer": f"I couldn't look up that definition. Error: {str(e)}",
+            "context_snippets": "",
+            "tool_used": "Dictionary Tool (Error)"
+        }
 
 def route_to_rag(query, retriever, qa_chain):
     """Router to the RAG pipeline"""
@@ -193,6 +236,11 @@ def process_query(query, retriever, qa_chain, agent):
     
     If the query contains keywords like "calculate" or "define", route to appropriate tool
     Otherwise, use the RAG pipeline
+    
+    Returns a dictionary with:
+    - answer: The final answer text
+    - context_snippets: The context used to generate the answer
+    - tool_used: Which tool/agent was used to process the query
     """
     logger.info(f"Processing query: {query}")
     
@@ -294,16 +342,35 @@ def main():
         # Display user message in chat message container
         with st.chat_message("user"):
             st.markdown(prompt)
-        
-        # Display assistant response in chat message container
+          # Display assistant response in chat message container
         with st.chat_message("assistant"):
             with st.spinner("Thinking..."):
                 # Process the query through our agentic workflow
                 response = process_query(prompt, retriever, qa_chain, agent)
-                st.markdown(response)
+                
+                # Display which tool/agent branch was used
+                st.info(f"🔧 **Tool Used**: {response['tool_used']}")
+                
+                # Display the final answer
+                st.markdown(f"**Answer**:\n{response['answer']}")
+                
+                # Display retrieved context snippets in an expandable section
+                with st.expander("View Retrieved Context"):
+                    st.markdown(response['context_snippets'])
         
-        # Add assistant response to chat history
-        st.session_state.messages.append({"role": "assistant", "content": response})    # Add sidebar with app information
+        # Add assistant response to chat history with formatted content
+        formatted_response = f"""🔧 **Tool Used**: {response['tool_used']}
+
+**Answer**:
+{response['answer']}
+
+<details>
+<summary>View Retrieved Context</summary>
+
+{response['context_snippets']}
+</details>
+"""
+        st.session_state.messages.append({"role": "assistant", "content": formatted_response})# Add sidebar with app information
     with st.sidebar:
         st.header("About")
         st.write("This Agentic RAG Assistant uses:")
